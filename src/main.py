@@ -10,7 +10,6 @@ import time
 DB_PATH="./data/data.db"
 DATA=[]
 COLORS="red,green,blue,orange,yellow,pink,purple,brown,grey".split(",")
-MODE=1
 
 
 
@@ -35,7 +34,6 @@ def train(NN,t,BS,S=0,log=True):
 	l=-1
 	st=time.time()
 	for i in range(S*int(t/10000),t):
-		d=batch(BS)
 		if (log==True and int(i/t*10000)>l):
 			l=int(i/t*10000)
 			print(f"{l/100}% complete... ({int((time.time()-st)*100)/100}s) Acc={NN.test(batch(1000),log=False)}%")
@@ -61,7 +59,7 @@ def predict(NN,C):
 
 
 
-if (MODE==0):
+def train_mode():
 	if (os.path.isfile("./NN-data.json")):
 		NN=NeuralNetwork(json.loads(open("./NN-data.json","r").read()))
 	else:
@@ -69,7 +67,10 @@ if (MODE==0):
 	print(NN.test(batch(1000),log=False))
 	train(NN,50_000,100)
 	print(NN.test(batch(1000),log=False))
-else:
+
+
+
+def test_mode():
 	NN=NeuralNetwork(json.loads(open("./NN-data.json","r").read()))
 	tk=Tk()
 	tk.resizable(0,0)
@@ -85,3 +86,8 @@ else:
 	g()
 	l.pack()
 	tk.mainloop()
+
+
+
+# train_mode()
+test_mode()
