@@ -39,7 +39,8 @@ def train(NN,t,BS,S=0,log=True):
 			print(f"{l/100}% complete... ({int((time.time()-st)*100)/100}s) Acc={NN.test(batch(1000),log=False)}%")
 			st=time.time()
 		NN.train_multiple(batch(BS),1,log=False)
-	open("./NN-data.json","w").write(json.dumps(NN.toJSON(),indent=4,sort_keys=True))
+	with open("./NN-data.json","w") as f:
+		f.write(json.dumps(NN.toJSON(),indent=4,sort_keys=True))
 
 
 
@@ -61,7 +62,8 @@ def predict(NN,C):
 
 def train_mode():
 	if (os.path.isfile("./NN-data.json")):
-		NN=NeuralNetwork(json.loads(open("./NN-data.json","r").read()))
+		with open("./NN-data.json","r") as f:
+			NN=NeuralNetwork(json.loads(f.read()))
 	else:
 		NN=NeuralNetwork(3,[12],len(COLORS),lr=0.005)
 	print(NN.test(batch(1000),log=False))
@@ -71,7 +73,8 @@ def train_mode():
 
 
 def test_mode():
-	NN=NeuralNetwork(json.loads(open("./NN-data.json","r").read()))
+	with open("./NN-data.json","r") as f:
+		NN=NeuralNetwork(json.loads(f.read()))
 	tk=Tk()
 	tk.resizable(0,0)
 	tk.geometry("600x600")
