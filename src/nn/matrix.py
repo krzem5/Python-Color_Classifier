@@ -2,6 +2,10 @@ import random
 
 
 
+__all__=["Matrix"]
+
+
+
 class Matrix:
 	def __init__(self,w,h):
 		self.w=w

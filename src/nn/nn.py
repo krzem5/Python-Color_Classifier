@@ -3,6 +3,10 @@ import math
 
 
 
+__all__=["ActivationFunction","NeuralNetwork","SIGMOID","TANH"]
+
+
+
 class ActivationFunction:
 	def __init__(self,f,df):
 		self.f=f
@@ -119,12 +123,3 @@ class NeuralNetwork:
 		for k in json["bl"]:
 			self.bl.append(Matrix(len(k[0]),len(k)).fill(k))
 		self.lr=json["lr"]
-
-
-
-if __name__=="__main__":
-	D=[[[0,0],[0]],[[1,0],[1]],[[0,1],[1]],[[1,1],[0]]]
-	nn=NeuralNetwork(2,[2,2],1,lr=0.0075)
-	nn.test(D)
-	nn.train_multiple(D,100000)
-	nn.test(D)
