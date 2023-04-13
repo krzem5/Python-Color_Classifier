@@ -40,7 +40,7 @@ class NeuralNetwork:
 				self.wl.append(Matrix(e,s).randomize())
 				self.bl.append(Matrix(e,1).randomize())
 			self.lr=lr
-	
+
 
 
 	def predict(self,i):
